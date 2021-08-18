@@ -54,3 +54,21 @@ document
   .addEventListener('click', function () {
     message.remove();
   });
+
+message.style.backgroundColor = '#37383d';
+
+//smooth scrolling
+const btnScroll = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+btnScroll.addEventListener('click', function (e) {
+  e.preventDefault();
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+  // window.scrollTo({
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // another way
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
