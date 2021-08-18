@@ -69,6 +69,34 @@ btnScroll.addEventListener('click', function (e) {
   //   behavior: 'smooth',
   // });
 
-  // another way
+  // const element2 = document.querySelector('#section--2');
+  // const s2coord = element2.getBoundingClientRect();
+  // console.log(s2coord);
+
+  // // another way
   section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+//random color
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('LINK: ', e.target, e.currentTarget);
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('CONTAINER : ', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV: ', e.target, e.currentTarget);
 });
