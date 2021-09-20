@@ -63,7 +63,9 @@ const section1 = document.querySelector('#section--1');
 btnScroll.addEventListener('click', function (e) {
   e.preventDefault();
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+
+  // console.log(btnScroll.getBoundingClientRect());
+  // console.log(document.documentElement.clientHeight, window.pageYOffset);
   // window.scrollTo({
   //   top: s1coords.top + window.pageYOffset,
   //   behavior: 'smooth',
@@ -72,3 +74,46 @@ btnScroll.addEventListener('click', function (e) {
   // another way
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// const randomNum = (min, max) => {
+//   return Math.floor(Math.random() * (max - min + 1) + min)
+  
+// }
+
+// const randomColor = () => {
+//   return `rgb(${randomNum(0,255)}, ${randomNum(0,255)}, ${randomNum(0,255)})`
+// }
+
+
+// document.querySelector('.nav__link').addEventListener('click', function(e){
+//   this.style.backgroundColor = randomColor()
+//   console.log("nav-link",e.target , e.currentTarget);
+//   // e.stopPropagation() 
+// })
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("nav-links",e.target, e.currentTarget);
+  
+// })
+
+// ************** smooth scrollimg to the sections *****************
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click' , function (e) {
+//     e.preventDefault()
+
+//     const id = this.getAttribute("href")
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({behavior : "smooth"})
+
+//   })
+// })
+
+document.querySelector(".nav__links").addEventListener('click', function (e) {
+  e.preventDefault()
+
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute("href")
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" })
+  }
+})
