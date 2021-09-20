@@ -130,22 +130,42 @@ const h1 = document.querySelector('h1')
 
 const tabContainer = document.querySelector('.operations__tab-container');
 const content = document.querySelectorAll('.operations__content');
+const tabs = document.querySelectorAll('.operations__tab');
 // console.log(content);
-[...tabContainer.children].forEach(function (el) {
-  el.addEventListener('click', (e) => {
-    for (const i of [...tabContainer.children]) {
-      i.classList.remove('operations__tab--active')
-    }
-    el.classList.add('operations__tab--active')
-    const id = el.getAttribute('data-tab')
-    // console.log(id);
+// [...tabContainer.children].forEach(function (el) {
+//   el.addEventListener('click', (e) => {
+//     for (const i of [...tabContainer.children]) {
+//       i.classList.remove('operations__tab--active')
+//     }
+//     el.classList.add('operations__tab--active')
+//     const id = el.getAttribute('data-tab')
+//     // console.log(id);
 
-    for (const slide of content) {
-      slide.classList.remove('operations__content--active')
-    }
+//     for (const slide of content) {
+//       slide.classList.remove('operations__content--active')
+//     }
 
-    content[id-1].classList.add('operations__content--active')
+//     content[id-1].classList.add('operations__content--active')
     
 
+//   })
+// })
+
+tabContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab')
+  const id = clicked.getAttribute('data-tab')
+  console.log(id);
+  if (!clicked) return;
+  tabs.forEach(el => {
+    el.classList.remove('operations__tab--active')
   })
+  clicked.classList.add('operations__tab--active')
+  
+  content.forEach(el => {
+    el.classList.remove('operations__content--active')
+  })
+  // content[id-1].classList.add('operations__content--active')
+
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+
 })
