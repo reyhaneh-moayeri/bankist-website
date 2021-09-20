@@ -117,3 +117,35 @@ document.querySelector(".nav__links").addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: "smooth" })
   }
 })
+
+const h1 = document.querySelector('h1')
+
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el){
+//   if (el !== h1) el.style.transform = 'scale(.5)'
+// })
+
+// h1.closest('.header').style.backgroundColor="orangered"
+
+const tabContainer = document.querySelector('.operations__tab-container');
+const content = document.querySelectorAll('.operations__content');
+// console.log(content);
+[...tabContainer.children].forEach(function (el) {
+  el.addEventListener('click', (e) => {
+    for (const i of [...tabContainer.children]) {
+      i.classList.remove('operations__tab--active')
+    }
+    el.classList.add('operations__tab--active')
+    const id = el.getAttribute('data-tab')
+    // console.log(id);
+
+    for (const slide of content) {
+      slide.classList.remove('operations__content--active')
+    }
+
+    content[id-1].classList.add('operations__content--active')
+    
+
+  })
+})
