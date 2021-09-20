@@ -150,7 +150,6 @@ const tabs = document.querySelectorAll('.operations__tab');
 
 //   })
 // })
-
 tabContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab')
   const id = clicked.getAttribute('data-tab')
@@ -194,4 +193,16 @@ nav.addEventListener('mouseover', function (e) {
 
 nav.addEventListener('mouseout' , function (e) {
   handleHover(e , 1)
+})
+
+// sticky menu
+const initialCoords = section1.getBoundingClientRect();
+window.addEventListener('scroll', () => {
+  console.log(window.scrollY);
+  console.log(initialCoords);
+  if (window.pageYOffset > initialCoords.top) {
+    nav.classList.add('sticky')
+  } else {
+    nav.classList.remove('sticky')
+  }
 })
