@@ -196,13 +196,29 @@ nav.addEventListener('mouseout' , function (e) {
 })
 
 // sticky menu
-const initialCoords = section1.getBoundingClientRect();
-window.addEventListener('scroll', () => {
-  console.log(window.scrollY);
-  console.log(initialCoords);
-  if (window.pageYOffset > initialCoords.top) {
-    nav.classList.add('sticky')
-  } else {
-    nav.classList.remove('sticky')
-  }
+// const initialCoords = section1.getBoundingClientRect();
+// window.addEventListener('scroll', () => {
+//   // console.log(window.scrollY);
+//   // console.log(initialCoords);
+//   if (window.pageYOffset > initialCoords.top) {
+//     nav.classList.add('sticky')
+//   } else {
+//     nav.classList.remove('sticky')
+//   }
+// })
+
+const stickyNav = (entries) => {
+  entries.forEach(entry => {
+    console.log(entry);
+    if (!entry.isIntersecting) nav.classList.add('sticky')
+    else nav.classList.remove('sticky')
+  })
+}
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: "-90px",
 })
+
+headerObserver.observe(header)
