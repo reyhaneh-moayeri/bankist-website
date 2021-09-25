@@ -77,24 +77,23 @@ btnScroll.addEventListener('click', function (e) {
 
 // const randomNum = (min, max) => {
 //   return Math.floor(Math.random() * (max - min + 1) + min)
-  
+
 // }
 
 // const randomColor = () => {
 //   return `rgb(${randomNum(0,255)}, ${randomNum(0,255)}, ${randomNum(0,255)})`
 // }
 
-
 // document.querySelector('.nav__link').addEventListener('click', function(e){
 //   this.style.backgroundColor = randomColor()
 //   console.log("nav-link",e.target , e.currentTarget);
-//   // e.stopPropagation() 
+//   // e.stopPropagation()
 // })
 
 // document.querySelector('.nav__links').addEventListener('click', function (e) {
 //   this.style.backgroundColor = randomColor();
 //   console.log("nav-links",e.target, e.currentTarget);
-  
+
 // })
 
 // ************** smooth scrollimg to the sections *****************
@@ -109,17 +108,16 @@ btnScroll.addEventListener('click', function (e) {
 //   })
 // })
 
-document.querySelector(".nav__links").addEventListener('click', function (e) {
-  e.preventDefault()
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
 
   if (e.target.classList.contains('nav__link')) {
-    const id = e.target.getAttribute("href")
-    document.querySelector(id).scrollIntoView({ behavior: "smooth" })
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
-})
+});
 
-const h1 = document.querySelector('h1')
-
+const h1 = document.querySelector('h1');
 
 // console.log(h1.parentElement.children);
 // [...h1.parentElement.children].forEach(function (el){
@@ -146,54 +144,51 @@ const tabs = document.querySelectorAll('.operations__tab');
 //     }
 
 //     content[id-1].classList.add('operations__content--active')
-    
 
 //   })
 // })
 tabContainer.addEventListener('click', function (e) {
-  const clicked = e.target.closest('.operations__tab')
-  const id = clicked.getAttribute('data-tab')
+  const clicked = e.target.closest('.operations__tab');
+  const id = clicked.getAttribute('data-tab');
   console.log(id);
   if (!clicked) return;
   tabs.forEach(el => {
-    el.classList.remove('operations__tab--active')
-  })
-  clicked.classList.add('operations__tab--active')
-  
-  content.forEach(el => {
-    el.classList.remove('operations__content--active')
-  })
-  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+    el.classList.remove('operations__tab--active');
+  });
+  clicked.classList.add('operations__tab--active');
 
-})
+  content.forEach(el => {
+    el.classList.remove('operations__content--active');
+  });
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
 
 // menu fade animation
-const nav = document.querySelector('.nav')
+const nav = document.querySelector('.nav');
 
 const handleHover = function (e, opacity) {
-    if (e.target.classList.contains('nav__link')) {
-    const link = e.target
- 
-    
-    const siblings = link.closest('.nav').querySelectorAll('.nav__link')
-    const logo = link.closest('.nav').querySelector('img')
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
 
     siblings.forEach(el => {
-      if (el !== link) el.style.opacity = `${opacity}`
-    })
-    logo.style.opacity = `${opacity}`
+      if (el !== link) el.style.opacity = `${opacity}`;
+    });
+    logo.style.opacity = `${opacity}`;
   }
-  
-}
+};
 
 nav.addEventListener('mouseover', function (e) {
-  handleHover(e , .5)
-})
+  handleHover(e, 0.5);
+});
 
-
-nav.addEventListener('mouseout' , function (e) {
-  handleHover(e , 1)
-})
+nav.addEventListener('mouseout', function (e) {
+  handleHover(e, 1);
+});
 
 // sticky menu
 // const initialCoords = section1.getBoundingClientRect();
@@ -207,41 +202,67 @@ nav.addEventListener('mouseout' , function (e) {
 //   }
 // })
 
-const navHeight = nav.getBoundingClientRect().height
-const stickyNav = (entries) => {
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = entries => {
   entries.forEach(entry => {
     console.log(entry);
-    if (!entry.isIntersecting) nav.classList.add('sticky')
-    else nav.classList.remove('sticky')
-  })
-}
+    if (!entry.isIntersecting) nav.classList.add('sticky');
+    else nav.classList.remove('sticky');
+  });
+};
 
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
   threshold: 0,
   rootMargin: `-${navHeight}px`,
-})
+});
 
-headerObserver.observe(header)
+headerObserver.observe(header);
 
-
-const allSections = document.querySelectorAll('.section')
+const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observe) {
-  const [entry] = entries
+  const [entry] = entries;
 
   if (!entry.isIntersecting) return;
-  entry.target.classList.remove('section--hidden')
-  observe.unobserve(entry.target)
-}
-
+  entry.target.classList.remove('section--hidden');
+  observe.unobserve(entry.target);
+};
 
 const sectionObserv = new IntersectionObserver(revealSection, {
   root: null,
-  threshold : 0.15,
-})
+  threshold: 0.15,
+});
 
 allSections.forEach(section => {
-  sectionObserv.observe(section)
-  section.classList.add('section--hidden')
-})
+  sectionObserv.observe(section);
+  section.classList.add('section--hidden');
+});
+
+// lazy loading
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+console.log(imgTargets);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load', function () {
+    this.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+});
+
+imgTargets.forEach(image => {
+  imgObserver.observe(image);
+});
